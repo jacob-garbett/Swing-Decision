@@ -440,7 +440,7 @@ with st.sidebar:
 
     st.divider()
     st.header("Data")
-    uploaded = st.file_uploader("Upload CSV (TrackMan export / master file)", type=["csv"])
+    uploaded = st.file_uploader("Upload CSV (Yakkertech export / master file)", type=["csv"])
     default_path = st.text_input("...or local CSV path (IDE use)", value="UNF Master File 25-26.csv")
 
 
@@ -458,9 +458,8 @@ except Exception as e:
     load_error = str(e)
 
 if load_error:
-    st.error("Could not load the CSV. If you're in an IDE, confirm the file path/name. "
-            "If you're sharing, upload the CSV instead.")
-    st.code(load_error)
+    st.error("Upload a CSV file to begin. Must be in the format of Yakkertech exports.")
+    # st.code(load_error)
     st.stop()
     
 # Populate Interpretation with Placeholder
@@ -637,4 +636,5 @@ elif selected_tab == tab_names[2]:
         hide_index=True, 
         height=table_height
     )
+
 

@@ -548,7 +548,7 @@ if "BatterTeam" in raw_df.columns:
         team_players = sorted(raw_df["Batter"].dropna().unique().tolist())
         with team_players_container:
             selected_team_players = st.multiselect(
-                "Players to include:",
+                "Players to include on leaderboard:",
                 options=team_players,
                 default=team_players,
                 help="Unselect players to exclude them from all views for the selected team."
@@ -658,6 +658,7 @@ elif selected_tab == tab_names[2]:
         hide_index=True, 
         height=table_height
     )
+
 
 
 

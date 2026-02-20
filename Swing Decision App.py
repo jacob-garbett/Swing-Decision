@@ -425,6 +425,7 @@ st.title("Swing Decisions")
 with st.sidebar:
     st.header("Controls")
     team_container = st.empty()
+    nof_players_container = st.empty()
     batter_container = st.empty()
     
     st.divider()
@@ -542,6 +543,24 @@ if "BatterTeam" in raw_df.columns:
     # Filter the raw data before processing
     raw_df = raw_df[raw_df["BatterTeam"] == selected_team].copy()
 
+    # Extra guardrail for UNF team labeling:
+    # when viewing NOF_OSP, allow removing players that should not be included.
+    if selected_team == "NOF_OSP" and "Batter" in raw_df.columns:
+        nof_players = sorted(raw_df["Batter"].dropna().unique().tolist())
+        with nof_players_container:
+            selected_nof_players = st.multiselect(
+                "UNF Players to include:",
+                options=nof_players,
+                default=nof_players,
+                help="Unselect any incorrectly labeled non-UNF players to exclude them from all views."
+            )
+
+        if not selected_nof_players:
+            st.warning("No UNF players selected. Choose at least one player to continue.")
+            st.stop()
+
+        raw_df = raw_df[raw_df["Batter"].isin(selected_nof_players)].copy()
+
 # Compute fields
 try:
     df = compute_fields(raw_df)
@@ -552,6 +571,10 @@ except Exception as e:
 
 # Batter selection
 batters = sorted(df["Batter"].dropna().unique().tolist())
+if not batters:
+    st.warning("No batters available after current team/player filters.")
+    st.stop()
+
 with batter_container:
     player = st.selectbox("Select Batter:", options=batters)
 

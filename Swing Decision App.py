@@ -471,9 +471,9 @@ with interpret_container:
         # Scale Points
         points = [
             (1.00,  "Elite", "green"),
-            (0.50,  "Competent", "lightgreen"),
-            (0.35,  "Always Take", "yellow"),
-            (0.00,  "Coin Flip", "orange"),
+            (0.50,  "Adequate", "lightgreen"),
+            (0.35,  "Poor / Always Take", "yellow"),
+            (0.00,  "Truly Random", "orange"),
             (-0.35, "Always Swing", "red")
         ]
         
@@ -528,10 +528,10 @@ with interpret_container:
 # Team Selection (Dynamic)
 if "BatterTeam" in raw_df.columns:
     all_teams = sorted(raw_df["BatterTeam"].dropna().unique().tolist())
-    # Default to "Unf fall 25" if present, otherwise first available
+    # Default to "NOF_OSP" if present, otherwise first available
     default_ix = 0
-    if "Unf fall 25" in all_teams:
-        default_ix = all_teams.index("Unf fall 25")
+    if "NOF_OSP" in all_teams:
+        default_ix = all_teams.index("NOF_OSP")
 
     with team_container:
         selected_team = st.selectbox(
@@ -636,5 +636,6 @@ elif selected_tab == tab_names[2]:
         hide_index=True, 
         height=table_height
     )
+
 
 

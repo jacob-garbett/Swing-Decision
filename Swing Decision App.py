@@ -549,7 +549,7 @@ if "BatterTeam" in raw_df.columns:
         nof_players = sorted(raw_df["Batter"].dropna().unique().tolist())
         with nof_players_container:
             selected_nof_players = st.multiselect(
-                "UNF Players to include:",
+                "Players to include:",
                 options=nof_players,
                 default=nof_players,
                 help="Unselect any incorrectly labeled non-UNF players to exclude them from all views."
@@ -659,6 +659,7 @@ elif selected_tab == tab_names[2]:
         hide_index=True, 
         height=table_height
     )
+
 
 
 
